@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MMU Student Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>MMU Student Portal</h2>
+
+  <!-- Registration Form -->
+  <div id="registerDiv">
+    <h3>Register</h3>
+    <input type="text" id="regEmail" placeholder="MMU Email"><br>
+    <input type="password" id="regPassword" placeholder="Password"><br>
+    <button onclick="register()">Register</button>
+    <p id="regMsg"></p>
+  </div>
+
+  <!-- Login Form -->
+  <div id="loginDiv">
+    <h3>Login</h3>
+    <input type="text" id="loginEmail" placeholder="MMU Email"><br>
+    <input type="password" id="loginPassword" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+    <p id="loginMsg"></p>
+  </div>
+
+  <!-- Welcome Page -->
+  <div id="welcomeDiv" style="display:none;">
+    <h3>Welcome, <span id="userEmail"></span>!</h3>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
