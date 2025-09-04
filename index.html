@@ -2,36 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>MMU Student Portal</title>
-  <link rel="stylesheet" href="style.css">
+  <title>MMUBay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css?v=7">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h2>MMU Student Portal</h2>
+  <!-- 顶部导航 -->
+  <header id="site-header">
+    <div class="logo">
+      <div class="logo-box">
+        <img src="./logo1.png" alt="MMU Logo">
+      </div>
+      <h1>MMUBay</h1>
+    </div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#features">Features</a>
+      <a href="#contact">Contact</a>
+      <button onclick="showLogin()">Login</button>
+      <button onclick="showRegister()">Register</button>
+    </nav>
+  </header>
 
-  <!-- Registration Form -->
-  <div id="registerDiv">
-    <h3>Register</h3>
-    <input type="text" id="regEmail" placeholder="MMU Email"><br>
-    <input type="password" id="regPassword" placeholder="Password"><br>
-    <button onclick="register()">Register</button>
-    <p id="regMsg"></p>
-  </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to MMUBay</h1>
+      <p>A trusted marketplace for MMU students — Buy, Sell, Connect with your peers.</p>
+      <button class="cta" onclick="goLogin()">Start Now</button>
+    </div>
+  </section>
 
-  <!-- Login Form -->
-  <div id="loginDiv">
-    <h3>Login</h3>
-    <input type="text" id="loginEmail" placeholder="MMU Email"><br>
-    <input type="password" id="loginPassword" placeholder="Password"><br>
-    <button onclick="login()">Login</button>
-    <p id="loginMsg"></p>
-  </div>
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <h2>What You Can Do</h2>
+    <div class="feature-cards">
+      <div class="card">
+        📚 <h3>Books</h3>
+        <p>Buy and sell textbooks at affordable prices.</p>
+      </div>
+      <div class="card">
+        💻 <h3>Electronics</h3>
+        <p>Find laptops, calculators, and learning devices.</p>
+      </div>
+      <div class="card">
+        🛠️ <h3>Study Tools</h3>
+        <p>Stationery, tools, and everything you need for class.</p>
+      </div>
+      <div class="card">
+        🔔 <h3>Auctions</h3>
+        <p>Join student-only auctions and grab the best deals.</p>
+      </div>
+    </div>
+  </section>
 
-  <!-- Welcome Page -->
-  <div id="welcomeDiv" style="display:none;">
-    <h3>Welcome, <span id="userEmail"></span>!</h3>
-    <button onclick="logout()">Logout</button>
-  </div>
+  <!-- Footer Contact -->
+  <footer id="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-container">
+      <div class="contact-card">
+        <h3>👩 Member 1</h3>
+        <p>📱 +60 12-345 6789</p>
+        <p>📷 <a href="https://instagram.com/member1" target="_blank">@member1</a></p>
+      </div>
+      <div class="contact-card">
+        <h3>👩 Member 2</h3>
+        <p>📱 +60 13-987 6543</p>
+        <p>📷 <a href="https://instagram.com/member2" target="_blank">@member2</a></p>
+      </div>
+      <div class="contact-card">
+        <h3>👩 Member 3</h3>
+        <p>📱 +60 14-555 8888</p>
+        <p>📷 <a href="https://instagram.com/member3" target="_blank">@member3</a></p>
+      </div>
+    </div>
+    <p class="copyright">© 2025 MMUBay Project Team, Multimedia University. All Rights Reserved.</p>
+  </footer>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=7" defer></script>
 </body>
 </html>
