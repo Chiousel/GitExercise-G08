@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>MMUBay</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="/static/style.css?v=7">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -12,16 +12,16 @@
   <header id="site-header">
     <div class="logo">
       <div class="logo-box">
-        <img src="./logo1.png" alt="MMU Logo">
+        <img src="/static/logo1.png" alt="MMU Logo">
       </div>
       <h1>MMUBay</h1>
     </div>
     <nav>
-      <a href="#">Home</a>
+      <a href="/">Home</a>
       <a href="#features">Features</a>
       <a href="#contact">Contact</a>
-      <button onclick="showLogin()">Login</button>
-      <button onclick="showRegister()">Register</button>
+      <button onclick="window.location.href='/accounts/login/'">Login</button>
+      <button onclick="window.location.href='/accounts/register/'">Register</button>
     </nav>
   </header>
 
@@ -30,7 +30,7 @@
     <div class="hero-content">
       <h1>Welcome to MMUBay</h1>
       <p>A trusted marketplace for MMU students — Buy, Sell, Connect with your peers.</p>
-      <button class="cta" onclick="goLogin()">Start Now</button>
+      <button class="cta" onclick="window.location.href='/accounts/register/'">Start Now</button>
     </div>
   </section>
 
@@ -80,6 +80,6 @@
     <p class="copyright">© 2025 MMUBay Project Team, Multimedia University. All Rights Reserved.</p>
   </footer>
 
-  <script src="app.js?v=7" defer></script>
+  <script src="/static/app.js?v=7" defer></script>
 </body>
 </html>
