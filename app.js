@@ -1,5 +1,5 @@
 function showLogin() { window.location.href = "login.html"; }
-function showRegister() { alert("Register form coming soon!"); }
+function showRegister() { window.location.href = "register.html"; }
 function goLogin() { window.location.href = "login.html"; }
 
 // 导航栏智能隐藏

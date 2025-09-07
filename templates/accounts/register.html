@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register - MMUBay</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-box">
+      <h2>Register</h2>
+      
+      {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <form method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
+        
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="MMU Email (@student.mmu.edu.my)" required>
+        <input type="password" name="password" placeholder="Password (min 8 chars)" required>
+        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+        
+        <button type="submit">Register</button>
+      </form>
+      
+      <!-- 使用相对路径，因为还没有login视图 -->
+      <p>Already have an account? <a href="../login/">Login</a></p>
+    </div>
+  </div>
+</body>
+</html>
