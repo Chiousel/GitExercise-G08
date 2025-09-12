@@ -1,0 +1,101 @@
+{% extends 'market/base.html' %}
+
+{% block title %}Delete Image - Marketplace{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-warning text-dark text-center">
+                    <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+                    <h4 class="card-title mb-0">Delete Image</h4>
+                </div>
+
+                <div class="card-body text-center p-4">
+                    <!-- Image Preview -->
+                    <div class="mb-4">
+                        <img src="{{ image.image.url }}" 
+                             class="img-fluid rounded shadow-sm" 
+                             alt="Image to delete"
+                             style="max-height: 250px; max-width: 100%; object-fit: cover;">
+                    </div>
+
+                    <h5 class="text-warning mb-3">
+                        Remove this image from "{{ image.item.title }}"?
+                    </h5>
+                    
+                    <p class="text-muted mb-4">
+                        This image will be permanently deleted and cannot be recovered.
+                    </p>
+
+                    <!-- Item Info -->
+                    <div class="bg-light rounded p-3 mb-4">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <i class="fas fa-box text-primary me-2"></i>
+                            <div>
+                                <div class="fw-bold">{{ image.item.title|truncatechars:30 }}</div>
+                                <small class="text-muted">
+                                    {{ image.item.images.count }} image{{ image.item.images.count|pluralize }} total
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if image.item.images.count == 1 %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Note:</strong> This is the only image for this item. Consider adding other images before removing this one.
+                        </div>
+                    {% endif %}
+
+                    <!-- Action Buttons -->
+                    <form method="post" class="d-inline">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="{% url 'edit_item' image.item.id %}" 
+                               class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Cancel
+                            </a>
+                            <button type="submit" 
+                                    class="btn btn-warning"
+                                    onclick="return confirm('Delete this image?')">
+                                <i class="fas fa-trash me-2"></i>Delete Image
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Navigation Back to Item -->
+            <div class="text-center mt-3">
+                <a href="{% url 'item_detail' image.item.id %}" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-eye me-2"></i>View Item Details
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Add fade-in animation
+document.addEventListener('DOMContentLoaded', function() {
+    const card = document.querySelector('.card');
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(-20px)';
+    
+    setTimeout(() => {
+        card.style.transition = 'all 0.3s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+    }, 100);
+});
+</script>
+{% endblock %}
+{% extends 'market/base.html' %}
+
+{% block title %}Delete Item - Marketplace{% endblock %}
+
+{% block content %}
