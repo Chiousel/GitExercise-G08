@@ -6,7 +6,7 @@ from .models import Item, ItemImage
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ['title', 'description', 'category', 'price', 'condition','location' 'pickup_point']
+        fields = ['title', 'description', 'category', 'price', 'condition','pickup_point']
 
 
 class ItemImageForm(forms.ModelForm):
