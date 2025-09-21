@@ -27,4 +27,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),  # 包含accounts应用的URL
     path('', views.index, name='index'),  # 首页路由
+    path('market/', include('market.urls')),  # 添加这行：朋友的市场路由
 ]
