@@ -1,7 +1,0 @@
-<h2>Delete Image?</h2>
-<img src="{{ image.image.url }}" width="200">
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Yes, delete</button>
-</form>
-<a href="{% url 'edit_item' image.item.id %}">Cancel</a>
