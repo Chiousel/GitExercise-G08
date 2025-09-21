@@ -130,19 +130,15 @@
                         
                         <div class="mb-4">
                             <label for="{{ form.pickup_point.id_for_label }}" class="form-label fw-semibold">
-                                Pickup Location
+                                Location
                             </label>
-                            <select class="form-select" 
-                                    id="{{ form.pickup_point.id_for_label }}" 
-                                    name="{{ form.pickup_point.name }}">
-                                <option value="">Select a pickup point...</option>
-                                {% for choice in form.pickup_point.field.queryset %}
-                                    <option value="{{ choice.id }}" 
-                                            {% if form.pickup_point.value == choice.id %}selected{% endif %}>
-                                        {{ choice.name }} {% if choice.floor %}(Floor: {{ choice.floor }}){% endif %}
-                                    </option>
-                                {% endfor %}
-                            </select>
+                            <div class="mb-4">
+    <label for="{{ form.pickup_point.id_for_label }}" class="form-label fw-semibold">
+        Pickup Point
+    </label>
+    {{ form.pickup_point }}
+    <div class="form-text">Where can buyers pick up this item?</div>
+</div>
                             <div class="form-text">Where can buyers pick up this item?</div>
                         </div>
 
