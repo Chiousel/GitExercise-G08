@@ -8,7 +8,7 @@ class PickupPoint(models.Model):
     remarks = models.TextField(blank=True, null=True)
     
     def __str__(self):
-        return f"{self.name} (Floor: {self.floor})"
+        return f"{self.name} 
 
 
 
@@ -17,18 +17,7 @@ class Item(models.Model):
         ("New", "New"),
         ("Used", "Used"),
     ]
-    LOCATION_CHOICES = [
-         ('fci', 'FCI'),
-        ('fcm', 'FCM'),
-        ('fom', 'FOM'),
-        ('foe', 'FOE'),
-        ('stc', 'STC'),
-        ('lp', 'LP'),
-        ('hb1', 'HB1'),
-        ('hb2', 'HB2'),
-        ('hb3', 'HB3'),
-        ('hb4', 'HB4'),
-    ]
+    
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -40,11 +29,6 @@ class Item(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     is_sold = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.title
-    class Meta:
-        ordering = ['-created_at']
-
 
 # 📷 Multiple Images for Each Item
 class ItemImage(models.Model):
@@ -54,4 +38,5 @@ class ItemImage(models.Model):
     def __str__(self):
         return f"Image for {self.item.title}"
 # Create your models here.
+
 
