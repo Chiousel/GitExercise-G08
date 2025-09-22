@@ -13,7 +13,7 @@ class PickupPoint(models.Model):
 
 
 class Item(models.Model):
-    CONDITION_CHOICES = [
+    CONDITION = [
         ("New", "New"),
         ("Used", "Used"),
     ]
@@ -23,8 +23,7 @@ class Item(models.Model):
     description = models.TextField()
     category = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    condition = models.CharField(max_length=20, choices=CONDITION_CHOICES)
-    location = models.CharField(max_length=50, choices=LOCATION_CHOICES, default='fci')
+    condition = models.CharField(max_length=20, choices=CONDITION)
     pickup_point = models.ForeignKey(PickupPoint, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_sold = models.BooleanField(default=False)
@@ -38,5 +37,6 @@ class ItemImage(models.Model):
     def __str__(self):
         return f"Image for {self.item.title}"
 # Create your models here.
+
 
 
