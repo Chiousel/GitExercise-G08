@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 from .models import PendingRegistration
+from django.shortcuts import redirect
 import re
 
 def index(request):
@@ -171,7 +172,8 @@ def login_view(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'Login successful!')
-            return redirect('index')
+            # 修复这里：重定向到市场页面而不是首页
+            return redirect('item_list')  # 改为跳转到市场页面
         else:
             messages.error(request, 'Invalid email or password')
             return redirect('login')

@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - MMUBAY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: #3498db;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 2rem 0;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .page-title i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        /* Profile Section */
+        .profile-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .profile-sidebar {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+        
+        .profile-main {
+            flex: 3;
+            min-width: 300px;
+        }
+        
+        .profile-pic-container {
+            position: relative;
+            width: 150px;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #3498db;
+            display: block;
+        }
+        
+        .change-photo {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: #3498db;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid white;
+            transition: background 0.3s;
+        }
+        
+        .change-photo:hover {
+            background: #2980b9;
+        }
+        
+        .user-name {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .user-role {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .user-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 0 10px;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #2c3e50;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu a i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: #3498db;
+            color: white;
+        }
+        
+        .sidebar-menu a:hover i, .sidebar-menu a.active i {
+            color: white;
+        }
+        
+        /* Profile Content */
+        .profile-content {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #3498db;
+            color: #3498db;
+        }
+        
+        .btn-outline:hover {
+            background: #3498db;
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        /* Upload Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .close {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+        
+        .upload-area {
+            border: 2px dashed #3498db;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .upload-area:hover {
+            background: #f8f9fa;
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+                /* Logout Button Styles */
+        .logout-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: inherit;
+            transition: color 0.3s;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0;
+            margin-left: 1.5rem;
+        }
+        
+        .logout-button:hover {
+            color: #3498db;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .form-row .form-group {
+                min-width: 100%;
+            }
+            /* 密码验证样式 */
+            .password-valid {
+                color: #28a745;
+            }
+
+            .password-invalid {
+                color: #dc3545;
+            }
+
+            .password-match.valid {
+                color: #28a745;
+            }
+
+            .password-match.invalid {
+                color: #dc3545;
+            }
+
+            .requirement-met {
+                color: #28a745;
+            }
+
+            .requirement-not-met {
+                color: #dc3545;
+            }
+
+            /* 消息样式 */
+            .message-success {
+                background-color: #d4edda;
+                color: #155724;
+                border: 1px solid #c3e6cb;
+            }
+
+            .message-error {
+                background-color: #f8d7da;
+                color: #721c24;
+                border: 1px solid #f5c6cb;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">MMU<span>BAY</span></div>
+            <nav>
+                <ul>
+                    <li><a href="/market/"><i class="fas fa-home"></i> Home</a></li>
+                    <li>
+                        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit"class="logout-button">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <h1 class="page-title"><i class="fas fa-user-circle"></i> My Profile</h1>
+        
+        <div class="profile-container">
+            <!-- Sidebar -->
+            <div class="profile-sidebar">
+                <!-- 更新用户信息部分 -->
+                <div class="profile-pic-container">
+                    <img src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}https://via.placeholder.com/150{% endif %}" 
+                        alt="Profile Picture" class="profile-pic" id="profileImage">
+                    <div class="change-photo" id="changePhotoBtn">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">{{ items_sold }}</div>
+                        <div class="stat-label">Items Sold</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">{{ items_bought }}</div>
+                        <div class="stat-label">Items Bought</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">{{ rating }}</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                </div>
+                
+                <ul class="sidebar-menu">
+                    <li><a href="#" class="active"><i class="fas fa-user"></i> Personal Information</a></li>
+                    <li><a href="#"><i class="fas fa-key"></i> Password Reset</a></li>
+                    <li><a href="#"><i class="fas fa-box"></i> My Items</a></li>
+                    <li><a href="#"><i class="fas fa-history"></i> Transaction History</a></li>
+                    <li><a href="#"><i class="fas fa-gavel"></i> My Bids</a></li>
+                    <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
+                </ul>
+            </div>
+            
+            <!-- Main Profile Content -->
+            <div class="profile-main">
+                <div class="profile-content">
+                    <h2 class="section-title"><i class="fas fa-user-edit"></i> Personal Information</h2>
+                    
+                    <form id="profile-form" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                            <!-- 添加这行：隐藏的头像上传字段 -->
+                        <input type="file" id="avatarUpload" name="avatar" accept="image/*" style="display: none;">
+                    
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" class="form-control" value="{{ user.first_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" class="form-control" value="{{ user.last_name }}">
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" value="{{ user.email }}" disabled>
+                            <small style="color: #7f8c8d; display: block; margin-top: 5px;">MMU student email cannot be changed</small>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-control" value="{{ profile.phone_number }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender" class="form-control">
+                                    <option value="male" {% if profile.gender == 'male' %}selected{% endif %}>Male</option>
+                                    <option value="female" {% if profile.gender == 'female' %}selected{% endif %}>Female</option>
+                                    <option value="other" {% if profile.gender == 'other' %}selected{% endif %}>Other</option>
+                                    <option value="prefer-not-to-say" {% if profile.gender == 'prefer-not-to-say' %}selected{% endif %}>Prefer not to say</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="studentId">Student ID</label>
+                                <input type="text" id="studentId" name="studentId" class="form-control" value="{{ profile.student_id }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="faculty">Faculty</label>
+                                <select id="faculty" name="faculty" class="form-control">
+                                    <option value="fist" {% if profile.faculty == 'fist' %}selected{% endif %}>Faculty of Information Science and Technology</option>
+                                    <option value="fbl" {% if profile.faculty == 'fbl' %}selected{% endif %}>Faculty of Business and Law</option>
+                                    <option value="foe" {% if profile.faculty == 'foe' %}selected{% endif %}>Faculty of Engineering</option>
+                                    <option value="foc" {% if profile.faculty == 'foc' %}selected{% endif %}>Faculty of Computing</option>
+                                    <option value="fcm" {% if profile.faculty == 'fcm' %}selected{% endif %}>Faculty of Creative Multimedia</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="bio">Bio</label>
+                            <textarea id="bio" name="bio" class="form-control" rows="3">{{ profile.bio }}</textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn"><i class="fas fa-save"></i> Save Changes</button>
+                        <button type="button" class="btn btn-outline"><i class="fas fa-times"></i> Cancel</button>
+                    </form>
+                    <!-- 添加查看公开资料链接 -->
+                    <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+                        <a href="{% url 'view_profile' user.username %}" class="btn btn-outline-primary" 
+                           style="padding: 10px 20px; font-size: 16px;">
+                            <i class="fas fa-eye me-2"></i> View My Public Profile
+                        </a>
+                        <p class="text-muted mt-2" style="font-size: 14px;">
+                            See how other users will view your profile
+                        </p>
+                    </div>
+                </div>
+                
+                    <!-- Password Reset Section -->
+                    <div class="profile-content">
+                        <h2 class="section-title"><i class="fas fa-key"></i> Password Reset</h2>
+                        
+                        <form id="password-form" method="POST" action="{% url 'change_password' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" id="currentPassword" name="old_password" class="form-control" placeholder="Enter your current password" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="newPassword">New Password</label>
+                                    <input type="password" id="newPassword" name="new_password1" class="form-control" placeholder="Enter new password" required>
+                                    <!-- 添加密码强度指示器 -->
+                                    <div class="password-strength" style="height: 4px; background: #eee; border-radius: 2px; margin-top: 5px; overflow: hidden;">
+                                        <div id="passwordStrengthBar" style="height: 100%; width: 0%; transition: width 0.3s, background-color 0.3s;"></div>
+                                    </div>
+                                    <small id="passwordStrengthText" style="font-size: 0.8rem; color: #7f8c8d;"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm New Password</label>
+                                    <input type="password" id="confirmPassword" name="new_password2" class="form-control" placeholder="Confirm new password" required>
+                                    <!-- 添加密码匹配指示器 -->
+                                    <small id="passwordMatch" style="font-size: 0.8rem;"></small>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                                    <h4 style="margin-bottom: 10px;">Password Requirements:</h4>
+                                    <ul id="passwordRequirements" style="font-size: 0.9rem; color: #7f8c8d; list-style: none; padding: 0;">
+                                        <li id="reqLength" style="margin-bottom: 5px;"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 8px;"></i> At least 8 characters long</li>
+                                        <li id="reqUppercase" style="margin-bottom: 5px;"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 8px;"></i> Contains at least one uppercase letter</li>
+                                        <li id="reqNumber" style="margin-bottom: 5px;"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 8px;"></i> Contains at least one number</li>
+                                        <li id="reqSpecial" style="margin-bottom: 5px;"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 8px;"></i> Contains at least one special character</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- 添加消息显示区域 -->
+                            <div id="passwordMessage" style="display: none; padding: 10px; border-radius: 4px; margin-bottom: 15px;"></div>
+                            
+                            <button type="submit" class="btn" id="updatePasswordBtn"><i class="fas fa-lock"></i> Update Password</button>
+                            <button type="button" class="btn btn-outline" id="resetPasswordForm"><i class="fas fa-redo"></i> Reset</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 MMUBAY - For MMU Students Only</p>
+            <p>Multimedia University Second-hand Marketplace</p>
+        </div>
+    </footer>
+
+    <!-- Upload Modal -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Change Profile Picture</h2>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="upload-area" id="dropArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Drag & Drop to Upload</h3>
+                <p>or</p>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                <button class="btn" onclick="document.getElementById('fileInput').click()">
+                    <i class="fas fa-folder-open"></i> Browse Files
+                </button>
+            </div>
+            <div style="text-align: center;">
+                <button class="btn" id="savePhotoBtn"><i class="fas fa-check"></i> Save Photo</button>
+                <button class="btn btn-outline" id="cancelUploadBtn"><i class="fas fa-times"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const modal = document.getElementById('uploadModal');
+        const changePhotoBtn = document.getElementById('changePhotoBtn');
+        const closeModal = document.getElementById('closeModal');
+        const cancelUploadBtn = document.getElementById('cancelUploadBtn');
+        const savePhotoBtn = document.getElementById('savePhotoBtn');
+        const fileInput = document.getElementById('fileInput');
+        const dropArea = document.getElementById('dropArea');
+        const profileImage = document.getElementById('profileImage');
+
+        changePhotoBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        cancelUploadBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // 修改保存图片的函数
+        savePhotoBtn.addEventListener('click', function() {
+            const file = fileInput.files[0];
+            if (file) {
+                // 预览图片
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImage.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+        
+                // 将文件设置到隐藏的avatarUpload输入框
+                const avatarUpload = document.getElementById('avatarUpload');
+                const dt = new DataTransfer();
+                dt.items.add(file);
+                avatarUpload.files = dt.files;
+            }       
+            modal.style.display = 'none';
+        });
+
+        // File upload handling
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImage.src = e.target.result;
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+
+        // Drag and drop handling
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight() {
+            dropArea.style.background = '#f1f8ff';
+        }
+
+        function unhighlight() {
+            dropArea.style.background = '';
+        }
+
+        dropArea.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            fileInput.files = files;
+            
+            if (files && files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImage.src = e.target.result;
+                }
+                reader.readAsDataURL(files[0]);
+            }
+        }
+
+    // 密码修改功能
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Password script loaded'); // 调试信息
+        const passwordForm = document.getElementById('password-form');
+        if (!passwordForm) {
+            console.error('Password form not found!');
+            return;
+        }     
+        const currentPassword = document.getElementById('currentPassword');
+        const newPassword = document.getElementById('newPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const updatePasswordBtn = document.getElementById('updatePasswordBtn');
+        const resetPasswordBtn = document.getElementById('resetPasswordForm');
+        const passwordMessage = document.getElementById('passwordMessage');
+        const passwordMatch = document.getElementById('passwordMatch');
+        const passwordStrengthBar = document.getElementById('passwordStrengthBar');
+        const passwordStrengthText = document.getElementById('passwordStrengthText');
+
+        // 检查元素是否存在
+        if (!currentPassword || !newPassword || !confirmPassword) {
+            console.error('Some password fields not found!');
+            return;
+        }
+        
+        // 密码要求元素
+        const reqLength = document.getElementById('reqLength');
+        const reqUppercase = document.getElementById('reqUppercase');
+        const reqNumber = document.getElementById('reqNumber');
+        const reqSpecial = document.getElementById('reqSpecial');
+        
+        // 验证密码强度
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            
+            // 长度检查
+            if (password.length >= 8) strength++;
+            
+            // 大写字母检查
+            if (/[A-Z]/.test(password)) strength++;
+            
+            // 数字检查
+            if (/[0-9]/.test(password)) strength++;
+            
+            // 特殊字符检查
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            
+            return strength;
+        }
+        
+        // 更新密码强度显示
+        function updatePasswordStrength() {
+            const password = newPassword.value;
+            const strength = checkPasswordStrength(password);
+            
+            // 重置样式
+            if (passwordStrengthBar) {
+                passwordStrengthBar.style.width = '0%';
+                passwordStrengthBar.style.backgroundColor = '#eee';
+            }
+            if (passwordStrengthText) {
+                passwordStrengthText.textContent = '';
+            }
+            
+            if (password.length === 0) return;
+            
+            let width, color, text, textColor;
+            
+            if (strength <= 1) {
+                width = '25%'; color = '#dc3545'; text = 'Weak'; textColor = '#dc3545';
+            } else if (strength <= 2) {
+                width = '50%'; color = '#fd7e14'; text = 'Fair'; textColor = '#fd7e14';
+            } else if (strength <= 3) {
+                width = '75%'; color = '#ffc107'; text = 'Good'; textColor = '#ffc107';
+            } else {
+                width = '100%'; color = '#28a745'; text = 'Strong'; textColor = '#28a745';
+            }
+            
+            if (passwordStrengthBar) {
+                passwordStrengthBar.style.width = width;
+                passwordStrengthBar.style.backgroundColor = color;
+            }
+            if (passwordStrengthText) {
+                passwordStrengthText.textContent = text;
+                passwordStrengthText.style.color = textColor;
+            }
+        }
+        
+        // 验证密码要求
+        function validatePasswordRequirements() {
+            const password = newPassword.value;
+            let isValid = true;
+            
+            // 更新要求状态
+            updateRequirement(reqLength, password.length >= 8);
+            updateRequirement(reqUppercase, /[A-Z]/.test(password));
+            updateRequirement(reqNumber, /[0-9]/.test(password));
+            updateRequirement(reqSpecial, /[^A-Za-z0-9]/.test(password));
+            
+            // 检查所有要求是否满足
+            if (password.length < 8 || !/[A-Z]/.test(password) || 
+                !/[0-9]/.test(password) || !/[^A-Za-z0-9]/.test(password)) {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        // 更新要求显示
+        function updateRequirement(element, isValid) {
+            if (!element) return;
+            
+            const icon = element.querySelector('i');
+            if (!icon) return;
+            
+            if (isValid) {
+                element.classList.add('requirement-met');
+                element.classList.remove('requirement-not-met');
+                icon.className = 'fas fa-check-circle';
+                icon.style.color = '#28a745';
+            } else {
+                element.classList.add('requirement-not-met');
+                element.classList.remove('requirement-met');
+                icon.className = 'fas fa-times-circle';
+                icon.style.color = '#dc3545';
+            }
+        }
+        
+        // 检查密码是否匹配
+        function checkPasswordMatch() {
+            if (!passwordMatch) return false;
+
+            const newPwd = newPassword.value;
+            const confirmPwd = confirmPassword.value;
+            
+            if (newPwd === '' && confirmPwd === '') {
+                passwordMatch.textContent = '';
+                passwordMatch.className = '';
+                return false;
+            }
+            
+            if (newPwd === confirmPwd && newPwd !== '') {
+                passwordMatch.textContent = 'Passwords match';
+                passwordMatch.className = 'password-match valid';
+                return true;
+            } else {
+                passwordMatch.textContent = 'Passwords do not match';
+                passwordMatch.className = 'password-match invalid';
+                return false;
+            }
+        }
+        
+        // 更新提交按钮状态
+        function updateSubmitButton() {
+            if (!updatePasswordBtn) return;
+            
+            const currentPwdValid = currentPassword.value.trim() !== '';
+            const newPwdValid = validatePasswordRequirements();
+            const passwordsMatch = checkPasswordMatch();
+            
+            updatePasswordBtn.disabled = !(currentPwdValid && newPwdValid && passwordsMatch);
+        }
+        
+        // 显示消息
+        function showMessage(text, type) {
+            passwordMessage.textContent = text;
+            passwordMessage.className = type === 'success' ? 'message-success' : 'message-error';
+            passwordMessage.style.display = 'block';
+            
+            // 5秒后隐藏消息
+            setTimeout(function() {
+                passwordMessage.style.display = 'none';
+            }, 5000);
+        }
+        
+        // 事件监听
+        currentPassword.addEventListener('input', updateSubmitButton);
+        newPassword.addEventListener('input', function() {
+            updatePasswordStrength();
+            validatePasswordRequirements();
+            checkPasswordMatch();
+            updateSubmitButton();
+        });
+        confirmPassword.addEventListener('input', function() {
+            checkPasswordMatch();
+            updateSubmitButton();
+        });
+        
+        // 重置表单
+        resetPasswordBtn.addEventListener('click', function() {
+            passwordForm.reset();
+            passwordMessage.style.display = 'none';
+            passwordMatch.textContent = '';
+            passwordStrengthBar.style.width = '0%';
+            passwordStrengthText.textContent = '';
+            updateSubmitButton();
+            
+            // 重置要求图标
+            const requirements = [reqLength, reqUppercase, reqNumber, reqSpecial];
+            requirements.forEach(req => {
+                const icon = req.querySelector('i');
+                icon.className = 'fas fa-circle';
+                icon.style.color = '';
+                icon.style.fontSize = '0.5rem';
+                req.classList.remove('requirement-met', 'requirement-not-met');
+            });
+        });
+        
+        // 表单提交
+        passwordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 显示加载状态
+            updatePasswordBtn.disabled = true;
+            updatePasswordBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+            
+            // 收集表单数据
+            const formData = new FormData(passwordForm);
+            console.log('Sending password change request...'); // 调试信息
+            
+            // 发送AJAX请求
+            fetch(passwordForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'same-origin' // 确保发送cookies
+            })
+            .then(response => {
+                console.log('Response status:', response.status); // 调试信息
+                if (!response.ok) {
+                    // 如果是403错误，可能是CSRF问题
+                    if (response.status === 403) {
+                        throw new Error('CSRF verification failed. Please refresh the page and try again.');
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                 console.log('Response data:', data); // 调试信息
+                if (data.success) {
+                    showMessage('Password updated successfully!', 'success');
+                    passwordForm.reset();
+                    updateSubmitButton();
+                    passwordStrengthBar.style.width = '0%';
+                    passwordStrengthText.textContent = '';
+                } else {
+                    showMessage(data.error || 'Password update failed. Please try again.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showMessage('An error occurred. Please try again.', 'error');
+            })
+            .finally(() => {
+                // 恢复按钮状态
+                updatePasswordBtn.disabled = false;
+                updatePasswordBtn.innerHTML = '<i class="fas fa-lock"></i> Update Password';
+                updateSubmitButton();
+            });
+        });
+        
+        // 初始化
+        updateSubmitButton();
+    });
+    </script>
+</body>
+</html>

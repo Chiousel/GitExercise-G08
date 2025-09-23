@@ -1,0 +1,397 @@
+<<<<<<< HEAD:project/myapp/templates/market/item_detail.html
+{% extends 'market/base.html' %}
+
+{% block title %}{{ item.title }} - MMUBAY{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'item_list' %}"><i class="fas fa-home"></i></a></li>
+            <li class="breadcrumb-item active">{{ item.title|truncatechars:30 }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Images Section -->
+        <div class="col-lg-6 mb-4">
+            {% if item.images.all %}
+                <!-- Main Image -->
+                <div class="mb-3">
+                    <img id="mainImage" 
+                         src="{{ item.images.first.image.url }}" 
+                         class="img-fluid rounded shadow-sm w-100" 
+                         alt="{{ item.title }}"
+                         style="height: 400px; object-fit: cover;">
+                </div>
+                
+                <!-- Thumbnail Images -->
+                {% if item.images.count > 1 %}
+                    <div class="row g-2">
+                        {% for image in item.images.all %}
+                            <div class="col-3">
+                                <img src="{{ image.image.url }}" 
+                                     class="img-fluid rounded shadow-sm thumbnail-img" 
+                                     alt="{{ item.title }}"
+                                     style="height: 80px; object-fit: cover; cursor: pointer; opacity: 0.7;"
+                                     onclick="changeMainImage('{{ image.image.url }}', this)">
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% else %}
+                <img src="https://via.placeholder.com/500x400?text=No+Image" 
+                     class="img-fluid rounded shadow-sm w-100" 
+                     alt="No image"
+                     style="height: 400px; object-fit: cover;">
+            {% endif %}
+        </div>
+
+        <!-- Item Details -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <!-- Title and Price -->
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h1 class="h2 mb-0">{{ item.title }}</h1>
+                        <span class="badge 
+                            {% if item.condition == 'New' %}bg-success{% else %}bg-warning text-dark{% endif %} fs-6">
+                            {{ item.condition }}
+                        </span>
+                    </div>
+                    
+                    <div class="price-tag fs-3 mb-4">RM{{ item.price }}</div>
+
+                    <!-- Item Info -->
+                    <div class="row mb-4">
+                        <div class="col-sm-6 mb-3">
+                            <strong class="text-muted d-block">Seller</strong>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-user-circle fa-2x text-primary me-2"></i>
+                                <div>
+                                    <div class="fw-semibold">{{ item.seller.username }}</div>
+                                    <small class="text-muted">Member since {{ item.seller.date_joined|date:"M Y" }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6 mb-3">
+                            <strong class="text-muted d-block">Category</strong>
+                            <span class="badge bg-light text-dark fs-6">{{ item.category }}</span>
+                        </div>
+                        
+                        {% if item.pickup_point %}
+                            <div class="col-12 mb-3">
+                                <strong class="text-muted d-block">Pickup Location</strong>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                                    <div>
+                                        <div>{{ item.pickup_point.name }}</div>
+                                        {% if item.pickup_point.remarks %}
+                                            <br><small class="text-muted">{{ item.pickup_point.remarks }}</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="col-12">
+                            <strong class="text-muted d-block">Posted</strong>
+                            <small><i class="fas fa-clock me-1"></i>{{ item.created_at|timesince }} ago</small>
+                        </div>
+                    </div>
+
+                    <!-- Contact/Action Buttons -->
+                    <div class="d-grid gap-2 mb-4">
+                        {% if user == item.seller %}
+                            <a href="{% url 'edit_item' item.id %}" class="btn btn-outline-primary btn-lg">
+                                <i class="fas fa-edit me-2"></i>Edit Item
+                            </a>
+                            <a href="{% url 'delete_item' item.id %}" class="btn btn-outline-danger">
+                                <i class="fas fa-trash me-2"></i>Delete Item
+                            </a>
+                        {% else %}
+                            <button class="btn btn-primary btn-lg" onclick="contactSeller()">
+                                <i class="fas fa-comments me-2"></i>Contact Seller
+                            </button>
+                            <button class="btn btn-outline-secondary" onclick="reportItem()">
+                                <i class="fas fa-flag me-2"></i>Report Item
+                            </button>
+                        {% endif %}
+                    </div>
+
+                    <!-- Safety Notice -->
+                    <div class="alert alert-info">
+                        <i class="fas fa-shield-alt me-2"></i>
+                        <strong>Safety Tip:</strong> Always meet in a public place and inspect items before purchasing.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title mb-3">
+                        <i class="fas fa-align-left me-2 text-primary"></i>Description
+                    </h3>
+                    <div class="lead">{{ item.description|linebreaks }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Similar Items Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="mb-4">
+                <i class="fas fa-tags me-2 text-primary"></i>You might also like
+            </h3>
+            <div class="text-center py-4">
+                <i class="fas fa-box-open fa-2x text-muted mb-3"></i>
+                <p class="text-muted">Similar items will be shown here</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function changeMainImage(imageSrc, thumbnail) {
+    document.getElementById('mainImage').src = imageSrc;
+    
+    // Reset all thumbnails opacity
+    document.querySelectorAll('.thumbnail-img').forEach(img => {
+        img.style.opacity = '0.7';
+    });
+    
+    // Highlight selected thumbnail
+    thumbnail.style.opacity = '1';
+}
+
+// Set first thumbnail as active
+document.addEventListener('DOMContentLoaded', function() {
+    const firstThumbnail = document.querySelector('.thumbnail-img');
+    if (firstThumbnail) {
+        firstThumbnail.style.opacity = '1';
+    }
+});
+
+function contactSeller() {
+    // In a real app, this would open a messaging system or show contact info
+    alert('In a real application, this would open a messaging system to contact {{ item.seller.username }}.');
+}
+
+function reportItem() {
+    if (confirm('Are you sure you want to report this item?')) {
+        alert('Thank you for reporting. We will review this item.');
+    }
+}
+</script>
+
+{% endblock %}
+=======
+{% extends 'market/base.html' %}
+
+{% block title %}{{ item.title }} - MMUBAY{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'item_list' %}"><i class="fas fa-home"></i></a></li>
+            <li class="breadcrumb-item active">{{ item.title|truncatechars:30 }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Images Section -->
+        <div class="col-lg-6 mb-4">
+            {% if item.images.all %}
+                <!-- Main Image -->
+                <div class="mb-3">
+                    <img id="mainImage" 
+                         src="{{ item.images.first.image.url }}" 
+                         class="img-fluid rounded shadow-sm w-100" 
+                         alt="{{ item.title }}"
+                         style="height: 400px; object-fit: cover;">
+                </div>
+                
+                <!-- Thumbnail Images -->
+                {% if item.images.count > 1 %}
+                    <div class="row g-2">
+                        {% for image in item.images.all %}
+                            <div class="col-3">
+                                <img src="{{ image.image.url }}" 
+                                     class="img-fluid rounded shadow-sm thumbnail-img" 
+                                     alt="{{ item.title }}"
+                                     style="height: 80px; object-fit: cover; cursor: pointer; opacity: 0.7;"
+                                     onclick="changeMainImage('{{ image.image.url }}', this)">
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% else %}
+                <img src="https://via.placeholder.com/500x400?text=No+Image" 
+                     class="img-fluid rounded shadow-sm w-100" 
+                     alt="No image"
+                     style="height: 400px; object-fit: cover;">
+            {% endif %}
+        </div>
+
+        <!-- Item Details -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <!-- Title and Price -->
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h1 class="h2 mb-0">{{ item.title }}</h1>
+                        <span class="badge 
+                            {% if item.condition == 'New' %}bg-success{% else %}bg-warning text-dark{% endif %} fs-6">
+                            {{ item.condition }}
+                        </span>
+                    </div>
+                    
+                    <div class="price-tag fs-3 mb-4">${{ item.price }}</div>
+
+                    <!-- Item Info -->
+                    <div class="row mb-4">
+                        <div class="col-sm-6 mb-3">
+                            <strong class="text-muted d-block">Seller</strong>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-user-circle fa-2x text-primary me-2"></i>
+                                <div>
+                                    <div class="fw-semibold">{{ item.seller.username }}</div>
+                                    <small class="text-muted">Member since {{ item.seller.date_joined|date:"M Y" }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6 mb-3">
+                            <strong class="text-muted d-block">Category</strong>
+                            <span class="badge bg-light text-dark fs-6">{{ item.category }}</span>
+                        </div>
+                        
+                        {% if item.pickup_point %}
+                            <div class="col-12 mb-3">
+                                <strong class="text-muted d-block">Pickup Location</strong>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                                    <div>
+                                        <div>{{ item.pickup_point.name }}</div>
+                                        {% if item.pickup_point.floor %}
+                                            <small class="text-muted">Floor: {{ item.pickup_point.floor }}</small>
+                                        {% endif %}
+                                        {% if item.pickup_point.remarks %}
+                                            <br><small class="text-muted">{{ item.pickup_point.remarks }}</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="col-12">
+                            <strong class="text-muted d-block">Posted</strong>
+                            <small><i class="fas fa-clock me-1"></i>{{ item.created_at|timesince }} ago</small>
+                        </div>
+                    </div>
+
+                    <!-- Contact/Action Buttons -->
+                    <div class="d-grid gap-2 mb-4">
+                        {% if user == item.seller %}
+                            <a href="{% url 'edit_item' item.id %}" class="btn btn-outline-primary btn-lg">
+                                <i class="fas fa-edit me-2"></i>Edit Item
+                            </a>
+                            <a href="{% url 'delete_item' item.id %}" class="btn btn-outline-danger">
+                                <i class="fas fa-trash me-2"></i>Delete Item
+                            </a>
+                        {% else %}
+                            <button class="btn btn-primary btn-lg" onclick="contactSeller()">
+                                <i class="fas fa-comments me-2"></i>Contact Seller
+                            </button>
+                            <button class="btn btn-outline-secondary" onclick="reportItem()">
+                                <i class="fas fa-flag me-2"></i>Report Item
+                            </button>
+                        {% endif %}
+                    </div>
+
+                    <!-- Safety Notice -->
+                    <div class="alert alert-info">
+                        <i class="fas fa-shield-alt me-2"></i>
+                        <strong>Safety Tip:</strong> Always meet in a public place and inspect items before purchasing.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title mb-3">
+                        <i class="fas fa-align-left me-2 text-primary"></i>Description
+                    </h3>
+                    <div class="lead">{{ item.description|linebreaks }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Similar Items Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="mb-4">
+                <i class="fas fa-tags me-2 text-primary"></i>You might also like
+            </h3>
+            <div class="text-center py-4">
+                <i class="fas fa-box-open fa-2x text-muted mb-3"></i>
+                <p class="text-muted">Similar items will be shown here</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function changeMainImage(imageSrc, thumbnail) {
+    document.getElementById('mainImage').src = imageSrc;
+    
+    // Reset all thumbnails opacity
+    document.querySelectorAll('.thumbnail-img').forEach(img => {
+        img.style.opacity = '0.7';
+    });
+    
+    // Highlight selected thumbnail
+    thumbnail.style.opacity = '1';
+}
+
+// Set first thumbnail as active
+document.addEventListener('DOMContentLoaded', function() {
+    const firstThumbnail = document.querySelector('.thumbnail-img');
+    if (firstThumbnail) {
+        firstThumbnail.style.opacity = '1';
+    }
+});
+
+function contactSeller() {
+    // In a real app, this would open a messaging system or show contact info
+    alert('In a real application, this would open a messaging system to contact {{ item.seller.username }}.');
+}
+
+function reportItem() {
+    if (confirm('Are you sure you want to report this item?')) {
+        alert('Thank you for reporting. We will review this item.');
+    }
+}
+</script>
+{% endblock %}
+>>>>>>> login-feature:backup_templates/market/item_detail.html
