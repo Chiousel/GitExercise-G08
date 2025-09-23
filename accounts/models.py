@@ -3,6 +3,10 @@ from django.db import models
 import random
 import string
 from django.utils import timezone
+from django.contrib.auth.models import User
+from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 def generate_otp():
     """生成一个6位的随机数字OTP"""
@@ -21,3 +25,31 @@ class PendingRegistration(models.Model):
     
     def __str__(self):
         return f"{self.email} - {self.otp_code} (Expires: {self.created_at + timezone.timedelta(minutes=30)})"
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    student_id = models.CharField(max_length=20, unique=True)
+    phone_number = models.CharField(max_length=15, blank=True)
+    gender = models.CharField(max_length=20, choices=[
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other'),
+        ('prefer-not-to-say', 'Prefer not to say')
+    ], blank=True)
+    faculty = models.CharField(max_length=100, blank=True)
+    bio = models.TextField(blank=True)
+    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)  # 添加这行
+
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.student_id}"
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    if hasattr(instance, 'userprofile'):
+        instance.userprofile.save()

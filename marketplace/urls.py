@@ -18,7 +18,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
+from django.contrib.auth import views as auth_views  # 添加这行导入
 from accounts import views  # 添加这行导入
+from django.conf import settings  # 添加这行
+from django.conf.urls.static import static  # 添加这行
 
 def redirect_to_index(request):
     return redirect('index')  # 这将重定向到首页
@@ -28,4 +31,9 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),  # 包含accounts应用的URL
     path('', views.index, name='index'),  # 首页路由
     path('market/', include('market.urls')),  # 添加这行：朋友的市场路由
+    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),  # 修改这行
 ]
+
+# 添加媒体文件服务（仅在开发环境）  # 添加这部分
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
