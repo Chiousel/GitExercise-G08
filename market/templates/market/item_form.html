@@ -67,7 +67,7 @@
                                     Price (RM) *
                                 </label>
                                 <div class="input-group input-group-lg">
-                                    <span class="input-group-text">$</span>
+                                    <span class="input-group-text">RM</span>
                                     <input type="number" 
                                            class="form-control" 
                                            id="{{ form.price.id_for_label }}" 
@@ -118,7 +118,7 @@
                                       id="{{ form.description.id_for_label }}" 
                                       name="{{ form.description.name }}" 
                                       rows="5" 
-                                      placeholder="Describe your item in detail. Include any defects, special features, or additional information buyers should know..."
+                                      placeholder="Describe your item in detail. Include any defects, special features, or add your contact number to let the buyers know where to contact you..."
                                       required>{{ form.description.value|default:'' }}</textarea>
                             <div class="form-text">Be detailed and honest about the item's condition</div>
                         </div>
@@ -130,16 +130,21 @@
                         
                         <div class="mb-4">
                             <label for="{{ form.pickup_point.id_for_label }}" class="form-label fw-semibold">
-                                Location
+                                Pickup Point
                             </label>
-                            <div class="mb-4">
-    <label for="{{ form.pickup_point.id_for_label }}" class="form-label fw-semibold">
-        Pickup Point
-    </label>
-    {{ form.pickup_point }}
-    <div class="form-text">Where can buyers pick up this item?</div>
-</div>
+                            {{ form.pickup_point }}
                             <div class="form-text">Where can buyers pick up this item?</div>
+                        </div>
+
+                        <!-- 朋友添加的Google地图 -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Map Preview</label>
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.5202729777826!2d101.6410416!3d2.9225256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cdb5f09fd7b13d%3A0x63b9b8f38aab1dc5!2sMultimedia%20University%20-%20MMU%20Cyberjaya%20Campus!5e0!3m2!1sen!2smy!4v1695378890000!5m2!1sen!2smy"
+                                width="100%" height="300" style="border:0; border-radius:8px;" allowfullscreen=""
+                                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                            <div class="form-text">Multimedia University Cyberjaya Campus</div>
                         </div>
 
                         <!-- Images Section -->
@@ -186,7 +191,7 @@
                                    multiple>
                             <div class="form-text">
                                 <i class="fas fa-info-circle me-1"></i>
-                                Upload multiple photos to show your item from different angles. Max 10MB per image.
+                                Upload multiple photos to show your item from different angles. Maximum 10MB per image.
                             </div>
                         </div>
 

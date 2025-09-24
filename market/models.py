@@ -55,4 +55,3 @@ class ItemImage(models.Model):
         return f"Image for {self.item.title}"
 # Create your models here.
 
->>>>>>> login-feature:market/models.py
