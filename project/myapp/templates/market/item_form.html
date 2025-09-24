@@ -104,7 +104,7 @@
                             </label>
                             <textarea class="form-control" id="{{ form.description.id_for_label }}"
                                 name="{{ form.description.name }}" rows="5"
-                                placeholder="Describe your item in detail. Include any defects, special features, or additional information buyers should know..."
+                                placeholder="Describe your item in detail. Include any defects, special features, or add your contact number to let the buyers know where to contact you..."
                                 required>{{ form.description.value|default:'' }}</textarea>
                             <div class="form-text">Item's condition</div>
                         </div>
@@ -320,3 +320,4 @@
     });
 </script>
 {% endblock %}
+
