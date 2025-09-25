@@ -54,10 +54,16 @@
                     <!-- Title and Price -->
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <h1 class="h2 mb-0">{{ item.title }}</h1>
-                        <span class="badge 
-                            {% if item.condition == 'New' %}bg-success{% else %}bg-warning text-dark{% endif %} fs-6">
-                            {{ item.condition }}
-                        </span>
+                        <div>
+                            {% if item.is_sold %}
+                                <span class="badge bg-danger fs-4">SOLD</span>
+                            {% else %}
+                                <span class="badge 
+                                    {% if item.condition == 'New' %}bg-success{% else %}bg-warning text-dark{% endif %} fs-6">
+                                    {{ item.condition }}
+                                </span>
+                            {% endif %}
+                        </div>
                     </div>
                     
                     <div class="price-tag fs-3 mb-4">RM{{ item.price }}</div>
@@ -114,6 +120,10 @@
                                 <i class="fas fa-trash me-2"></i>Delete Item
                             </a>
                         {% else %}
+                            <!-- Place Order按钮（主要操作） -->
+                            <button class="btn btn-success btn-lg" onclick="placeOrder('{{ item.id }}')">
+                                <i class="fas fa-shopping-cart me-2"></i>Place Order
+                            </button>
                             <button class="btn btn-primary btn-lg" onclick="contactSeller()">
                                 <i class="fas fa-comments me-2"></i>Contact Seller
                             </button>
@@ -192,6 +202,25 @@ function contactSeller() {
 function reportItem() {
     if (confirm('Are you sure you want to report this item?')) {
         alert('Thank you for reporting. We will review this item.');
+    }
+}
+
+// Place Order函数 - 添加在这里
+function placeOrder(itemId) {
+    if (confirm('Are you sure you want to place an order for "' + document.querySelector('.h2').innerText + '"?')) {
+        // 创建表单动态提交
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/market/item/' + itemId + '/place-order/';
+        
+        const csrfToken = document.createElement('input');
+        csrfToken.type = 'hidden';
+        csrfToken.name = 'csrfmiddlewaretoken';
+        csrfToken.value = '{{ csrf_token }}';
+        
+        form.appendChild(csrfToken);
+        document.body.appendChild(form);
+        form.submit();
     }
 }
 </script>

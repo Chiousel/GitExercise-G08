@@ -11,4 +11,7 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('profile/<str:username>/', views.view_profile, name='view_profile'),
     path('change-password/', views.change_password, name='change_password'),
+    path('my-items/', views.my_items, name='my_items'),
+    path('item/<int:item_id>/place-order/', views.place_order, name='place_order'),
+    path('order/<int:order_id>/accept/', views.accept_order, name='accept_order'),
 ]

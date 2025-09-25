@@ -70,6 +70,13 @@
                                      alt="No image">
                             {% endif %}
                             
+                            <!-- SOLD Badge -->
+                            {% if item.is_sold %}
+                                <span class="badge bg-danger fs-6" style="position: absolute; top: 10px; left: 10px;">
+                                    SOLD
+                                </span>
+                            {% endif %}
+                            
                             <!-- Condition Badge -->
                             <span class="badge condition-badge 
                                 {% if item.condition == 'New' %}bg-success{% else %}bg-warning text-dark{% endif %}">
@@ -83,7 +90,8 @@
                             
                             <div class="mt-auto">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="price-tag">${{ item.price }}</span>
+                                    <!-- 修改：把$改为RM -->
+                                    <span class="price-tag">RM{{ item.price }}</span>
                                     <small class="text-muted">
                                         <i class="fas fa-clock me-1"></i>{{ item.created_at|timesince }} ago
                                     </small>
