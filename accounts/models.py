@@ -39,6 +39,12 @@ class UserProfile(models.Model):
     faculty = models.CharField(max_length=100, blank=True)
     bio = models.TextField(blank=True)
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)  # 添加这行
+    # 🔥 添加这两个计数字段
+    items_sold = models.IntegerField(default=0)
+    items_bought = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.student_id}"
 
     
     def __str__(self):
