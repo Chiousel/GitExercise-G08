@@ -114,7 +114,6 @@
         </div>
     </nav>
 
-    <!-- Messages -->
     {% if messages %}
         <div class="container mt-3">
             {% for message in messages %}
@@ -126,13 +125,11 @@
         </div>
     {% endif %}
 
-    <!-- Main Content -->
     <main class="flex-fill">
         {% block content %}
         {% endblock %}
     </main>
 
-    <!-- Footer -->
     <footer class="py-4 mt-5">
         <div class="container">
             <div class="row">
