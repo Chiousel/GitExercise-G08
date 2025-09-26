@@ -124,12 +124,6 @@
                             <button class="btn btn-success btn-lg" onclick="placeOrder('{{ item.id }}')">
                                 <i class="fas fa-shopping-cart me-2"></i>Place Order
                             </button>
-                            <button class="btn btn-primary btn-lg" onclick="contactSeller()">
-                                <i class="fas fa-comments me-2"></i>Contact Seller
-                            </button>
-                            <button class="btn btn-outline-secondary" onclick="reportItem()">
-                                <i class="fas fa-flag me-2"></i>Report Item
-                            </button>
                         {% endif %}
                     </div>
 
@@ -193,17 +187,6 @@ document.addEventListener('DOMContentLoaded', function() {
         firstThumbnail.style.opacity = '1';
     }
 });
-
-function contactSeller() {
-    // In a real app, this would open a messaging system or show contact info
-    alert('In a real application, this would open a messaging system to contact {{ item.seller.username }}.');
-}
-
-function reportItem() {
-    if (confirm('Are you sure you want to report this item?')) {
-        alert('Thank you for reporting. We will review this item.');
-    }
-}
 
 // Place Order函数 - 添加在这里
 function placeOrder(itemId) {

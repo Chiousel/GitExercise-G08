@@ -103,6 +103,8 @@
             padding: 1.5rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             height: fit-content;
+            position: sticky;
+            top: 20px;
         }
         
         .profile-main {
@@ -223,6 +225,7 @@
             padding: 2rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
+            scroll-margin-top: 20px; /* 为平滑滚动添加偏移 */
         }
         
         .section-title {
@@ -373,7 +376,7 @@
             margin-bottom: 1rem;
         }
 
-                /* Logout Button Styles */
+        /* Logout Button Styles */
         .logout-button {
             background: none;
             border: none;
@@ -391,6 +394,50 @@
             color: #3498db;
         }
         
+        /* 密码验证样式 */
+        .password-valid {
+            color: #28a745;
+        }
+
+        .password-invalid {
+            color: #dc3545;
+        }
+
+        .password-match.valid {
+            color: #28a745;
+        }
+
+        .password-match.invalid {
+            color: #dc3545;
+        }
+
+        .requirement-met {
+            color: #28a745;
+        }
+
+        .requirement-not-met {
+            color: #dc3545;
+        }
+
+        /* 消息样式 */
+        .message-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .message-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .profile-container {
@@ -415,42 +462,9 @@
             .form-row .form-group {
                 min-width: 100%;
             }
-            /* 密码验证样式 */
-            .password-valid {
-                color: #28a745;
-            }
-
-            .password-invalid {
-                color: #dc3545;
-            }
-
-            .password-match.valid {
-                color: #28a745;
-            }
-
-            .password-match.invalid {
-                color: #dc3545;
-            }
-
-            .requirement-met {
-                color: #28a745;
-            }
-
-            .requirement-not-met {
-                color: #dc3545;
-            }
-
-            /* 消息样式 */
-            .message-success {
-                background-color: #d4edda;
-                color: #155724;
-                border: 1px solid #c3e6cb;
-            }
-
-            .message-error {
-                background-color: #f8d7da;
-                color: #721c24;
-                border: 1px solid #f5c6cb;
+            
+            .profile-sidebar {
+                position: static;
             }
         }
     </style>
@@ -508,23 +522,21 @@
                 </div>
                 
                 <ul class="sidebar-menu">
-                    <li><a href="#" class="active"><i class="fas fa-user"></i> Personal Information</a></li>
-                    <li><a href="#"><i class="fas fa-key"></i> Password Reset</a></li>
-                    <li><a href="#"><i class="fas fa-box"></i> My Items</a></li>
-                    <li><a href="#"><i class="fas fa-history"></i> Transaction History</a></li>
-                    <li><a href="#"><i class="fas fa-gavel"></i> My Bids</a></li>
-                    <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
+                    <!-- 修改菜单项链接，添加锚点 -->
+                    <li><a href="#personal-info" class="active"><i class="fas fa-user"></i> Personal Information</a></li>
+                    <li><a href="#password-reset"><i class="fas fa-key"></i> Password Reset</a></li>
                 </ul>
             </div>
             
             <!-- Main Profile Content -->
             <div class="profile-main">
-                <div class="profile-content">
+                <!-- 为内容区域添加对应的ID -->
+                <div class="profile-content" id="personal-info">
                     <h2 class="section-title"><i class="fas fa-user-edit"></i> Personal Information</h2>
                     
                     <form id="profile-form" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                            <!-- 添加这行：隐藏的头像上传字段 -->
+                        <!-- 添加这行：隐藏的头像上传字段 -->
                         <input type="file" id="avatarUpload" name="avatar" accept="image/*" style="display: none;">
                     
                         <div class="form-row">
@@ -587,64 +599,63 @@
                     </form>
                     <!-- 添加查看公开资料链接 -->
                     <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-                        <a href="{% url 'view_profile' user.username %}" class="btn btn-outline-primary" 
+                        <a href="{% url 'view_profile' user.username %}" class="btn btn-outline" 
                            style="padding: 10px 20px; font-size: 16px;">
-                            <i class="fas fa-eye me-2"></i> View My Public Profile
+                            <i class="fas fa-eye"></i> View My Public Profile
                         </a>
-                        <p class="text-muted mt-2" style="font-size: 14px;">
+                        <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">
                             See how other users will view your profile
                         </p>
                     </div>
                 </div>
                 
-                    <!-- Password Reset Section -->
-                    <div class="profile-content">
-                        <h2 class="section-title"><i class="fas fa-key"></i> Password Reset</h2>
+                <!-- 为密码重置区域添加对应的ID -->
+                <div class="profile-content" id="password-reset">
+                    <h2 class="section-title"><i class="fas fa-key"></i> Password Reset</h2>
+                    
+                    <form id="password-form" method="POST" action="{% url 'change_password' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" name="old_password" class="form-control" placeholder="Enter your current password" required>
+                        </div>
                         
-                        <form id="password-form" method="POST" action="{% url 'change_password' %}">
-                            {% csrf_token %}
+                        <div class="form-row">
                             <div class="form-group">
-                                <label for="currentPassword">Current Password</label>
-                                <input type="password" id="currentPassword" name="old_password" class="form-control" placeholder="Enter your current password" required>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="newPassword">New Password</label>
-                                    <input type="password" id="newPassword" name="new_password1" class="form-control" placeholder="Enter new password" required>
-                                    <!-- 添加密码强度指示器 -->
-                                    <div class="password-strength" style="height: 4px; background: #eee; border-radius: 2px; margin-top: 5px; overflow: hidden;">
-                                        <div id="passwordStrengthBar" style="height: 100%; width: 0%; transition: width 0.3s, background-color 0.3s;"></div>
-                                    </div>
-                                    <small id="passwordStrengthText" style="font-size: 0.8rem; color: #7f8c8d;"></small>
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword" name="new_password1" class="form-control" placeholder="Enter new password" required>
+                                <!-- 添加密码强度指示器 -->
+                                <div class="password-strength" style="height: 4px; background: #eee; border-radius: 2px; margin-top: 5px; overflow: hidden;">
+                                    <div id="passwordStrengthBar" style="height: 100%; width: 0%; transition: width 0.3s, background-color 0.3s;"></div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="confirmPassword">Confirm New Password</label>
-                                    <input type="password" id="confirmPassword" name="new_password2" class="form-control" placeholder="Confirm new password" required>
-                                    <!-- 添加密码匹配指示器 -->
-                                    <small id="passwordMatch" style="font-size: 0.8rem;"></small>
-                                </div>
+                                <small id="passwordStrengthText" style="font-size: 0.8rem; color: #7f8c8d;"></small>
                             </div>
-                            
                             <div class="form-group">
-                                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
-                                    <h4 style="margin-bottom: 10px;">Password Requirements:</h4>
-                                    <ul id="passwordRequirements" style="font-size: 0.9rem; color: #7f8c8d; list-style: none; padding: 0;">
-                                        <li id="reqLength" style="margin-bottom: 5px;"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 8px;"></i> At least 8 characters long</li>
-                                        <li id="reqUppercase" style="margin-bottom: 5px;"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 8px;"></i> Contains at least one uppercase letter</li>
-                                        <li id="reqNumber" style="margin-bottom: 5px;"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 8px;"></i> Contains at least one number</li>
-                                        <li id="reqSpecial" style="margin-bottom: 5px;"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 8px;"></i> Contains at least one special character</li>
-                                    </ul>
-                                </div>
+                                <label for="confirmPassword">Confirm New Password</label>
+                                <input type="password" id="confirmPassword" name="new_password2" class="form-control" placeholder="Confirm new password" required>
+                                <!-- 添加密码匹配指示器 -->
+                                <small id="passwordMatch" style="font-size: 0.8rem;"></small>
                             </div>
-                            
-                            <!-- 添加消息显示区域 -->
-                            <div id="passwordMessage" style="display: none; padding: 10px; border-radius: 4px; margin-bottom: 15px;"></div>
-                            
-                            <button type="submit" class="btn" id="updatePasswordBtn"><i class="fas fa-lock"></i> Update Password</button>
-                            <button type="button" class="btn btn-outline" id="resetPasswordForm"><i class="fas fa-redo"></i> Reset</button>
-                        </form>
-                    </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                                <h4 style="margin-bottom: 10px;">Password Requirements:</h4>
+                                <ul id="passwordRequirements" style="font-size: 0.9rem; color: #7f8c8d; list-style: none; padding: 0;">
+                                    <li id="reqLength" style="margin-bottom: 5px;"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 8px;"></i> At least 8 characters long</li>
+                                    <li id="reqUppercase" style="margin-bottom: 5px;"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 8px;"></i> Contains at least one uppercase letter</li>
+                                    <li id="reqNumber" style="margin-bottom: 5px;"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 8px;"></i> Contains at least one number</li>
+                                    <li id="reqSpecial" style="margin-bottom: 5px;"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 8px;"></i> Contains at least one special character</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- 添加消息显示区域 -->
+                        <div id="passwordMessage" style="display: none; padding: 10px; border-radius: 4px; margin-bottom: 15px;"></div>
+                        
+                        <button type="submit" class="btn" id="updatePasswordBtn"><i class="fas fa-lock"></i> Update Password</button>
+                        <button type="button" class="btn btn-outline" id="resetPasswordForm"><i class="fas fa-redo"></i> Reset</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -682,6 +693,64 @@
     </div>
 
     <script>
+        // 平滑滚动功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有侧边栏菜单链接
+            const menuLinks = document.querySelectorAll('.sidebar-menu a');
+            
+            // 为每个菜单链接添加点击事件
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 获取目标区域的ID
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        // 计算滚动位置（考虑固定元素可能的影响）
+                        const offsetTop = targetSection.offsetTop - 20;
+                        
+                        // 平滑滚动到目标区域
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                        
+                        // 更新活动菜单项
+                        document.querySelectorAll('.sidebar-menu a').forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    }
+                });
+            });
+            
+            // 页面加载时根据URL哈希值高亮对应菜单项
+            const hash = window.location.hash;
+            if (hash) {
+                const targetLink = document.querySelector(`.sidebar-menu a[href="${hash}"]`);
+                if (targetLink) {
+                    document.querySelectorAll('.sidebar-menu a').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    targetLink.classList.add('active');
+                    
+                    // 滚动到对应区域
+                    const targetSection = document.querySelector(hash);
+                    if (targetSection) {
+                        setTimeout(() => {
+                            const offsetTop = targetSection.offsetTop - 20;
+                            window.scrollTo({
+                                top: offsetTop,
+                                behavior: 'smooth'
+                            });
+                        }, 100);
+                    }
+                }
+            }
+        });
+
         // Modal functionality
         const modal = document.getElementById('uploadModal');
         const changePhotoBtn = document.getElementById('changePhotoBtn');
