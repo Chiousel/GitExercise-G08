@@ -162,16 +162,13 @@
 function changeMainImage(imageSrc, thumbnail) {
     document.getElementById('mainImage').src = imageSrc;
     
-    // Reset all thumbnails opacity
     document.querySelectorAll('.thumbnail-img').forEach(img => {
         img.style.opacity = '0.7';
     });
     
-    // Highlight selected thumbnail
     thumbnail.style.opacity = '1';
 }
 
-// Set first thumbnail as active
 document.addEventListener('DOMContentLoaded', function() {
     const firstThumbnail = document.querySelector('.thumbnail-img');
     if (firstThumbnail) {
@@ -179,7 +176,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Place Order函数 - 添加在这里
 function placeOrder(itemId) {
     if (confirm('Are you sure you want to place an order for "' + document.querySelector('.h2').innerText + '"?')) {
         // 创建表单动态提交
