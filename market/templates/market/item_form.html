@@ -298,7 +298,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Form validation
     const form = document.querySelector('form');
     form.addEventListener('submit', function(e) {
         const title = document.getElementById('{{ form.title.id_for_label }}').value.trim();
@@ -316,8 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Price must be greater than 0.');
             return false;
         }
-        
-        // Show loading state
+    
         const submitBtn = form.querySelector('button[type="submit"]');
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
