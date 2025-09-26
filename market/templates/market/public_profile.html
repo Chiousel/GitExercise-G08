@@ -31,16 +31,16 @@
                         </div>
                     </div>
                     
-                    <!-- 添加用户信息 -->
+                    
                     <div class="mt-3 text-start">
                         {% if profile_user.userprofile.student_id %}
                         <p><strong>Student ID:</strong> {{ profile_user.userprofile.student_id }}</p>
                         {% endif %}
-                        <!-- 添加电话号码 -->
+                        
                         {% if profile_user.userprofile.phone_number %}
                         <p><strong>Phone:</strong> {{ profile_user.userprofile.phone_number }}</p>
                         {% endif %}
-                        <!-- 添加性别 -->
+                        
                         {% if profile_user.userprofile.gender %}
                         <p><strong>Gender:</strong> 
                             {% if profile_user.userprofile.gender == 'male' %}Male
