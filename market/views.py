@@ -1,12 +1,10 @@
-from django.contrib import messages  # 添加这行
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Item, Order
 from django.db.models import Q
-from .models import Item, ItemImage
+from .models import Item, Order, ItemImage  # 合并重复的导入
 from .forms import ItemForm, ItemImageForm
 from django.contrib.auth.models import User
-from .models import Item  # 假设您有Item模型
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import JsonResponse
@@ -18,9 +16,9 @@ def item_list(request):
     items = Item.objects.filter(is_sold=False).order_by('-created_at')
     if query:
         items = items.filter(
-            models.Q(title__icontains=query) |
-            models.Q(description__icontains=query) |
-            models.Q(category__icontains=query)
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(category__icontains=query)
         )
     
     return render(request, 'market/item_list.html', {
