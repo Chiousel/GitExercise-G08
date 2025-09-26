@@ -29,7 +29,6 @@
                         This image will be permanently deleted and cannot be recovered.
                     </p>
 
-                    <!-- Item Info -->
                     <div class="bg-light rounded p-3 mb-4">
                         <div class="d-flex align-items-center justify-content-center">
                             <i class="fas fa-box text-primary me-2"></i>
@@ -49,7 +48,6 @@
                         </div>
                     {% endif %}
 
-                    <!-- Action Buttons -->
                     <form method="post" class="d-inline">
                         {% csrf_token %}
                         <div class="d-flex justify-content-center gap-3">
@@ -67,7 +65,6 @@
                 </div>
             </div>
 
-            <!-- Navigation Back to Item -->
             <div class="text-center mt-3">
                 <a href="{% url 'item_detail' image.item.id %}" class="btn btn-outline-primary btn-sm">
                     <i class="fas fa-eye me-2"></i>View Item Details
