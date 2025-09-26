@@ -3,7 +3,6 @@
 {% block title %}Browse Items - MMUBAY{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
 <div class="hero-section">
     <div class="container text-center">
         <h1 class="display-4 fw-bold mb-3">
@@ -11,7 +10,6 @@
         </h1>
         <p class="lead mb-4">Discover amazing items from your community</p>
         
-        <!-- Search Form -->
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <form method="get" class="d-flex">
@@ -31,7 +29,7 @@
 </div>
 
 <div class="container">
-    <!-- Action Buttons -->
+    
     <div class="row mb-4">
         <div class="col-md-6">
             <h2 class="h4 mb-0">
@@ -52,7 +50,6 @@
         </div>
     </div>
 
-    <!-- Items Grid -->
     {% if items %}
         <div class="row g-4">
             {% for item in items %}
@@ -70,14 +67,12 @@
                                      alt="No image">
                             {% endif %}
                             
-                            <!-- SOLD Badge -->
                             {% if item.is_sold %}
                                 <span class="badge bg-danger fs-6" style="position: absolute; top: 10px; left: 10px;">
                                     SOLD
                                 </span>
                             {% endif %}
                             
-                            <!-- Condition Badge -->
                             <span class="badge condition-badge 
                                 {% if item.condition == 'New' %}bg-success{% else %}bg-warning text-dark{% endif %}">
                                 {{ item.condition }}
